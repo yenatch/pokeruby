@@ -377,20 +377,20 @@ u8 PlayerHasBerries(void) {
 
 void ResetBerryTreeSparkleFlags(void) {
 	struct MapObject *objects;
-	u16 left;
-	u16 top;
+	u16 cam_left;
+	u16 cam_top;
+	int left;
+	int top;
 	u16 x;
-	s16 y;
-	s32 right;
-	s32 bottom;
-	u32 v0;
+	u16 y;
+	int right;
+	int bottom;
 	int i;
-	GetCameraCoords(&left, &top);
-	right = left;
-	bottom = top;
-	bottom += 3;
-	right += 14;
-	v0 = (((u32)bottom << 16) + 0x80000) >> 16;
+	GetCameraCoords(&cam_left, &cam_top);
+	left = cam_left;
+	top = cam_top + 3;
+	right = left + 14;
+	bottom = ((top << 16) + 0x80000) >> 16;
 	objects = &gMapObjects;
 	for (i = 0; i <= 0xf; i++) {
 		if (!objects[i].active)
@@ -398,14 +398,14 @@ void ResetBerryTreeSparkleFlags(void) {
 		if (objects[i].unknown_6 != 0xc)
 			continue;
 		x = objects[i].x;
-		left = x;
+		cam_left = x;
 		y = objects[i].y;
-		top = y;
+		cam_top = y;
 		if (
-			(s16)left <= x
+			(s16)cam_left <= x
 			&& x <= (s16)right
-			&& (u16)bottom <= y
-			&& y <= (s16)v0
+			&& (s16)top <= y
+			&& (s16)y <= (s16)bottom
 		) {
 			ResetBerryTreeSparkleFlag(objects[i].filler[9]);
 		}

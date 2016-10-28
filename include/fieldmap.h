@@ -155,7 +155,11 @@ struct MapObject
     u32 mapobj_bit_31:1;
     u8 spriteId;
     u8 graphicsId;
-    u8 filler[0x1E];
+    u8 unknown_6;
+    u8 unknown_7[9];
+    s16 x;
+    s16 y;
+    u8 filler[0xe];
 };
 
 struct MapObjectGraphicsInfo
